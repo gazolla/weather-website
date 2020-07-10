@@ -3,7 +3,6 @@
 const search = (address, callback)=>{
     fetch(`/weather?address=${address}`).then((response)=>{
         response.json().then((data)=>{
-            console.log(data)
             callback(data)
         })
     })
@@ -41,12 +40,16 @@ const renderError = (data) => {
 const renderWeather = (data) => {
     const weatherEl = document.querySelector('#weather-div')
         
+    const imgEl = document.createElement('img')
+    imgEl.src = data.forecast[0]
+
     const locationEl = document.createElement('h2')
     locationEl.textContent = data.location
 
     const forecastEl = document.createElement('h4')
-    forecastEl.textContent = data.forecast
+    forecastEl.textContent = data.forecast[1]
 
+    weatherEl.appendChild(imgEl)
     weatherEl.appendChild(locationEl)
     weatherEl.appendChild(forecastEl)
 }
